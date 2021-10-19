@@ -1,6 +1,8 @@
+import PropTypes from "prop-types";
 import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem";
 import s from "./ImageGallery.module.css";
-export default function ImageGallery({ images, onOpenModal, onSetImg }) {
+
+function ImageGallery({ images, onOpenModal, onSetImg }) {
   return (
     <div>
       <ul className={s.imageGallery}>
@@ -18,3 +20,11 @@ export default function ImageGallery({ images, onOpenModal, onSetImg }) {
     </div>
   );
 }
+
+ImageGallery.propTypes = {
+  images: PropTypes.array.isRequired,
+  onOpenModal: PropTypes.func.isRequired,
+  onSetImg: PropTypes.func.isRequired,
+};
+
+export default ImageGallery;

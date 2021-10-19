@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
 import errorImage from "../../images/error.jpg";
 
-export default function ImageGalleryError({ message }) {
+function ImageGalleryError({ message }) {
   return (
     <div role="alert">
       <img src={errorImage} width="240" alt="sadcat" />
@@ -8,3 +9,7 @@ export default function ImageGalleryError({ message }) {
     </div>
   );
 }
+
+ImageGalleryError.propTypes = { message: PropTypes.string.isRequired };
+
+export default ImageGalleryError;

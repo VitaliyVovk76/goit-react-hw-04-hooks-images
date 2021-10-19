@@ -1,45 +1,48 @@
-import { Component } from "react";
+import { useState } from "react";
 import { ImSearch } from "react-icons/im";
+import PropTypes from "prop-types";
 import s from "./SearchBar.module.css";
-class Searchbar extends Component {
-  state = { searchQuery: "" };
+
+function Searchbar({ onSubmit }) {
+  const [searchQuery, setSearchQuery] = useState("");
   //записываем в state запрос
-  hendleQueryChange = (event) => {
-    this.setState({ searchQuery: event.currentTarget.value.toLowerCase() });
+  const hendleQueryChange = (event) => {
+    setSearchQuery(event.currentTarget.value.toLowerCase());
   };
   //делаем проверку на пустоту запроса, передаем значение state в Арр и чистим state
-  hendleSubmit = (event) => {
+  const hendleSubmit = (event) => {
     event.preventDefault();
-    if (this.state.searchQuery.trim() === "") {
+    if (searchQuery.trim() === "") {
       alert("Input query");
       return;
     }
-    this.props.onSubmit(this.state.searchQuery);
-    this.setState({ searchQuery: "" });
+    onSubmit(searchQuery);
+    setSearchQuery("");
   };
-  render() {
-    return (
-      <header className={s.searchBar}>
-        <form className={s.searchForm} onSubmit={this.hendleSubmit}>
-          <button type="submit" className={s.searchFormButton}>
-            <span className={s.searchFormButtonLabel}>
-              <ImSearch />
-              Search
-            </span>
-          </button>
+  return (
+    <header className={s.searchBar}>
+      <form className={s.searchForm} onSubmit={hendleSubmit}>
+        <button type="submit" className={s.searchFormButton}>
+          <span className={s.searchFormButtonLabel}>
+            <ImSearch />
+            Search
+          </span>
+        </button>
 
-          <input
-            className={s.searchFormInput}
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            onChange={this.hendleQueryChange}
-            value={this.state.searchQuery}
-          />
-        </form>
-      </header>
-    );
-  }
+        <input
+          className={s.searchFormInput}
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          onChange={hendleQueryChange}
+          value={searchQuery}
+        />
+      </form>
+    </header>
+  );
 }
+
+Searchbar.propTypes = { onSubmit: PropTypes.func.isRequired };
+
 export default Searchbar;
